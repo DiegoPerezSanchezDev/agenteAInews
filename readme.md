@@ -4,7 +4,7 @@ Un agente automatizado que busca las noticias más relevantes sobre Inteligencia
 
 Este proyecto funciona de forma 100% autónoma utilizando **GitHub Actions**, por lo que no necesitas un servidor ni un hosting para ejecutarlo.
 
-![alt text](image.png)
+![alt text](image-2.png)
 
 ![alt text](image-1.png)
 
