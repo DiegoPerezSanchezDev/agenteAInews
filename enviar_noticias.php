@@ -16,7 +16,8 @@ $smtpFromName = 'Agente de Noticias IA';
 $recipientName = 'Destinatario';
 
 if (!$newsApiKey || !$smtpUsername || !$smtpPassword || !$recipientEmail) {
-    die("Error: Faltan variables de entorno. Asegúrate de configurar los Secrets en GitHub.");
+    die("Error: Faltan variables de entorno. Asegúrate de configurar los Secrets e:wq
+    n GitHub.");
 }
 
 function getAiNews($apiKey, $language) {
