@@ -6,6 +6,8 @@ Este proyecto funciona de forma 100% autónoma utilizando **GitHub Actions**, po
 
 ![alt text](image.png)
 
+![alt text](image-1.png)
+
 ---
 
 ## ✨ Características
