@@ -1,0 +1,46 @@
+# Nombre del flujo de trabajo que verás en la pestaña Actions
+name: Enviar Resumen Semanal de Noticias IA
+
+# Disparadores: definen cuándo se ejecutará este flujo de trabajo
+on:
+  # 1. Ejecución programada (como un Cron Job)
+  schedule:
+    # Se ejecuta a las 9:00 AM UTC todos los domingos.
+    # Formato: Minuto Hora DíaMes Mes DíaSemana (0 es Domingo, 6 es Sábado)
+    - cron: '0 9 * * 0'
+
+  # 2. Permite la ejecución manual desde la pestaña Actions (para hacer pruebas)
+  workflow_dispatch:
+
+# Tareas: define el trabajo que se va a realizar
+jobs:
+  # Nombre del trabajo (puedes llamarlo como quieras)
+  send-email:
+    # El tipo de máquina virtual que se usará para ejecutar el trabajo
+    runs-on: ubuntu-latest
+
+    # Pasos: la secuencia de tareas que ejecutará el trabajo
+    steps:
+      # Paso 1: Descarga tu código del repositorio a la máquina virtual
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Paso 2: Configura el entorno de PHP en la máquina virtual
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+
+      # Paso 3: Instala las dependencias de tu proyecto (PHPMailer) usando Composer
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress
+
+      # Paso 4: Ejecuta tu script PHP para buscar noticias y enviar el correo
+      - name: Run PHP script to send email
+        env:
+          # Aquí se inyectan los secrets de forma segura como variables de entorno
+          NEWS_API_KEY: ${{ secrets.NEWS_API_KEY }}
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          RECIPIENT_EMAIL: ${{ secrets.RECIPIENT_EMAIL }}
+        run: php enviar_noticias.php
